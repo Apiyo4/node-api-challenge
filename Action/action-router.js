@@ -24,5 +24,25 @@ router.post('/', (req,res)=>{
         res.status(500).json({error: "There was an error while saving the action to the database" })
     })
 })
-
+router.put('/:id', (req,res)=>{
+    const body = req.body;
+    const {id} = req.params;
+    ActionDB.update(id, body)
+    .then(action=>{
+        res.status(200).json(action);
+    })
+    .catch(error=>{
+        res.status(500).json({ error: "The action information could not be modified." }) 
+    })
+})
+router.delete('/:id', (req,res)=>{
+    const {id} = req.params;
+    ActionDB.remove(id)
+    .then(action=>{
+        res.status(200).json(`${action} action was deleted`);
+    })
+    .catch(error=>{
+        res.status(400).json({ error: "The action could not be removed" })
+    })
+})
 module.exports= router;
