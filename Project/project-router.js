@@ -33,5 +33,24 @@ router.put('/:id', (req,res)=>{
         res.status(500).json({ error: "The project information could not be modified." }) 
     })
 })
-
+router.delete('/:id', (req,res)=>{
+    const {id} = req.params;
+    ProjectDB.remove(id)
+    .then(project=>{
+        res.status(200).json(`${project} project was deleted`);
+    })
+    .catch(error=>{
+        res.status(400).json({ error: "The project could not be removed" })
+    })
+})
+router.get('/:id/actions', (req,res)=>{
+        const {id} = req.params;
+    ProjectDB.getProjectActions(id)
+    .then(actions=>{
+        res.status(200).json(actions)
+    })
+    .catch(error=>{
+        res.status(500).json({ error: "The actions information could not be retrieved." })
+    })
+})
 module.exports= router;
