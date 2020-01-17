@@ -14,7 +14,7 @@ router.get('/:id', (req, res)=>{
     })
     
 })
-router.post('/', (req,res)=>{
+router.post('/', validateProjectId, (req,res)=>{
     const body= req.body;
     ActionDB.insert(body)
     .then(action=>{
@@ -45,4 +45,14 @@ router.delete('/:id', (req,res)=>{
         res.status(400).json({ error: "The action could not be removed" })
     })
 })
+function validateProjectId(req,res, next){
+   console.log(req.body)
+    const id = req.body.project_id;
+    if(id){
+        console.log(`This is the post id ${id}`)
+        next();
+    }else{
+        res.status(400).json({ message: "invalid post id" })
+    }
+}
 module.exports= router;
