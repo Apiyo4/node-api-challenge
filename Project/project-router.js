@@ -20,7 +20,9 @@ router.post('/', (req,res)=>{
     .then(project=>{
         res.status(201).json(project)
     })
-    .catch()
+    .catch(error=>{
+        res.status(500).json({error: "There was an error while saving the project to the database" })
+    })
 })
 router.put('/:id', (req,res)=>{
     const body = req.body;
