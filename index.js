@@ -12,20 +12,9 @@ I need this code, but don't know where, perhaps should make some middleware, don
 
 Go code!
 */
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
+const app = require('./server');
 
-const port = process.env.PORT||5000
-const app = express();
-app.use(express.json);
-app.use(helmet());
-app.use(cors());
-
-app.get('/', (req, res)=>{
-    res.status(200).json(`Welcome to the api`);
-})
-
+const port = process.env.PORT||5000;
 app.listen(port, ()=>{
     console.log(`Listening on ${port}.`)
 })
